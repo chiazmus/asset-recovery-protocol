@@ -76,17 +76,22 @@ const SpriteRenderer = {
     renderMinimap(ctx, myPlayer, remotePlayers, gameScreen, mapScale = 0.25) {
         const minimapWidth = 80;
         const minimapHeight = 80;
+        const minimapRadius = 40;
         const minimapX = gameScreen.width - minimapWidth - 5;
         const minimapY = 5;
         
         // Draw background
         ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
-        ctx.fillRect(minimapX, minimapY, minimapWidth, minimapHeight);
+        ctx.beginPath();
+        ctx.arc(minimapX + minimapRadius, minimapY + minimapRadius, minimapRadius, 0, Math.PI * 2);
+        ctx.fill();
         
         // Draw border
-        ctx.strokeStyle = "gray";
+        ctx.strokeStyle = "lime";
         ctx.lineWidth = 1;
-        ctx.strokeRect(minimapX, minimapY, minimapWidth, minimapHeight);
+        ctx.beginPath();
+        ctx.arc(minimapX + minimapRadius, minimapY + minimapRadius, minimapRadius, 0, Math.PI * 2);
+        ctx.stroke();
         
         // Draw my player (center)
         const centerX = minimapX + minimapWidth / 2;
@@ -98,8 +103,8 @@ const SpriteRenderer = {
         ctx.fill();
         
         // Draw direction indicator
-        const dirLength = 10;
-        const dirAngle = (myPlayer.angle) * Math.PI / 180;
+        const dirLength = 7;
+        const dirAngle = (-90) * Math.PI / 180;
         const dirX = Math.cos(dirAngle) * dirLength;
         const dirY = Math.sin(dirAngle) * dirLength;
         ctx.strokeStyle = "lime";
@@ -111,13 +116,15 @@ const SpriteRenderer = {
         
         // Draw remote players
         for (let player of remotePlayers) {
-            const relX = (player.x - myPlayer.x) * mapScale;
-            const relY = (player.y - myPlayer.y) * mapScale;
+            const dy = (player.y-myPlayer.y);
+            const dx = (player.x-myPlayer.x);
+            const angleToPlayer = Math.atan2(dy, dx);
+            const distanceToPlayer = Math.sqrt(dx*dx + dy*dy);
             
             // Rotate based on my angle to align with direction indicator
-            const playerAngleRad = -(myPlayer.angle+90) * Math.PI / 180;
-            const rotX = relX * Math.cos(playerAngleRad) - relY * Math.sin(playerAngleRad);
-            const rotY = relX * Math.sin(playerAngleRad) + relY * Math.cos(playerAngleRad);
+            const playerAngleRad = angleToPlayer - ((myPlayer.angle+90) * Math.PI / 180);
+            const rotX = Math.cos(playerAngleRad) * distanceToPlayer;
+            const rotY = Math.sin(playerAngleRad) * distanceToPlayer;
             
             const mapX = centerX + rotX;
             const mapY = centerY + rotY;
