@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h3>My ID: <span id="my-id">...</span></h3>
+    <input type="text" id="receiver-id" placeholder="Paste Peer ID here">
+    <button onclick="connectToPeer()">Connect</button>
+    <br><br>
+    <input type="text" id="message" placeholder="Type message">
+    <button onclick="sendMessage()">Send Message</button>
+    <div id="status"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js" integrity="sha512-XEKeWX+mI3Ov+tg2evDlVQFzVOIp4T8J3cNcCEPaEUGpxJV3eZaN8rHuvnFPvQpGJBHPmrozJDMpm2xcDvtmyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VariedHeight Js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js" integrity="sha512-XEKeWX+mI3Ov+tg2evDlVQFzVOIp4T8J3cNcCEPaEUGpxJV3eZaN8rHuvnFPvQpGJBHPmrozJDMpm2xcDvtmyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rot-js@2.2.1/dist/rot.min.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="screenContainer">
+        <canvas id="screen"></canvas>
+        <div id="uiLayer">
+            <div id="peerConnection">
+                <h3 id="peerStatus">Disconnected</h3>
+                <div>
+                    <button id="hostButton">Host Game</button>
+                    <br>
+                    <input type="text" id="hostIdInput" placeholder="Enter Host ID to join">
+                    <button id="joinButton">Join</button>
+                </div>
+                <div id="myPeerId" style="font-size: 12px; margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
