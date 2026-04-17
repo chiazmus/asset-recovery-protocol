@@ -76,7 +76,7 @@ const SpriteRenderer = {
     renderMinimap(ctx, myPlayer, remotePlayers, gameScreen, mapScale = 0.25) {
         const minimapWidth = 80;
         const minimapHeight = 80;
-        const minimapRadius = 40;
+        const minimapRadius = 35;
         const minimapX = gameScreen.width - minimapWidth - 5;
         const minimapY = 5;
         
