@@ -169,15 +169,16 @@ function extractImageData(img) {
 
 async function loadAssets() {
 
-    const [ backgroundFiller, woodWall, floorPanel, wallPanel
+    const [ backgroundFiller, woodWall, floorPanel, wallPanel, robotSprite
     ] = await Promise.all([
         loadImage('./assets/backgroundPlaceFiller.png'), 
         loadImage('./assets/woodWall.png'),
         loadImage('./assets/floorTile.png'),
         loadImage('./assets/wallPanel.png'),
+        loadImage('./assets/robotSprite.png'),
     ]);
 
-    myAssets = {backgroundFiller, woodWall, floorPanel, 'floorPanelTexture': extractImageData(floorPanel), wallPanel}; 
+    myAssets = {backgroundFiller, woodWall, floorPanel, 'floorPanelTexture': extractImageData(floorPanel), wallPanel, robotSprite}; 
 }
 
 async function setupMultiplayer() {
@@ -346,7 +347,7 @@ function draw() {
     // Render remote players
     if (isMultiplayer) {
         const remotePlayers = multiplayerManager.getAllRemotePlayers();
-        SpriteRenderer.renderRemotePlayers(ctx, remotePlayers, gameScreen, Player, World, wallZBuffer);
+        SpriteRenderer.renderRemotePlayers(ctx, remotePlayers, gameScreen, Player, World, wallZBuffer, myAssets.robotSprite);
         SpriteRenderer.renderMinimap(ctx, Player, remotePlayers, gameScreen);
     }
 }
