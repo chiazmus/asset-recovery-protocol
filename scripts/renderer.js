@@ -78,7 +78,7 @@ const Renderer = {
                 // 2. Determine color based on even/odd sum (checkerboard)
                 // const randomNum = Math.floor(SimpleRandom.next(Number(`${cellX}${cellY}`))*100);
                 // // console.log(randomNum);
-                const distFade = (Math.min(Math.max((correctedDistance / 50), 0.001), 1));
+                const distFade = (Math.min(Math.max((correctedDistance / 10), 0.001), 1));
 
                 const texIndex = (internalY * 64 + internalX ) * 4;
                 const redCol = floorAssetTexture[texIndex];
@@ -86,9 +86,9 @@ const Renderer = {
                 const blueCol = floorAssetTexture[texIndex+2];
 
                 const pixelIndex = (y * screenWidth + x) * 4;
-                data[pixelIndex]     = ((1 - distFade) * redCol) + (distFade * skyColor.r); // R
-                data[pixelIndex + 1] = ((1 - distFade) * greenCol) + (distFade * skyColor.g); // G
-                data[pixelIndex + 2] = ((1 - distFade) * blueCol) + (distFade * skyColor.b); // B
+                data[pixelIndex]     = (((1 - distFade) * redCol) + (distFade * skyColor.r)); // R
+                data[pixelIndex + 1] = (((1 - distFade) * greenCol) + (distFade * skyColor.g)); // G
+                data[pixelIndex + 2] = (((1 - distFade) * blueCol) + (distFade * skyColor.b)); // B
                 data[pixelIndex + 3] = 255;   // A (Opaque)
             }
         }

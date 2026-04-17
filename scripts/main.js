@@ -14,6 +14,7 @@ import { SpriteRenderer } from "./spriteRenderer.js";
 let inputEvents = {"mouseDeltaX": 0, "KeyW": false, "KeyS": false, "KeyA": false, "KeyD": false};
 const mouseSensitivity = 0.2;
 const turnSpeed = 4;
+const skyCol = {r: 20, g: 20, b: 25};
 
 // Multiplayer variables
 let multiplayerManager = null;
@@ -79,11 +80,12 @@ function renderWalls() {
 
         const sx = Math.min(Math.max(textureCoord * myAssets.wallPanel.width, 0), 63);
 
-        const color = rayCastResult.side == 0 ? 0 : 0.5;
+        let color = rayCastResult.side == 0 ? 0 : 0.25;
+        color = color + (1 - Math.max(5 / distance, 0.001));
+        color = Math.min(color, 1);
         if (distance < 48) {
-            // ctx.filter = `brightness(${color}%)`;
             ctx.drawImage(myAssets.wallPanel, sx, 0, 1, 64, xLoc, lineBottom - lineHeight, 1, lineHeight);
-            Renderer.drawLine(xLoc, lineBottom, xLoc, lineBottom - lineHeight, `rgba(0, 0, 0, ${color})`, (1/raysToCast * (gameScreen.width))+0.1);
+            Renderer.drawLine(xLoc, lineBottom, xLoc, lineBottom - lineHeight, `rgba(20, 20, 25, ${color})`, (1/raysToCast * (gameScreen.width))+0.1);
         }
     }
 }
@@ -171,7 +173,7 @@ async function loadAssets() {
     ] = await Promise.all([
         loadImage('./assets/backgroundPlaceFiller.png'), 
         loadImage('./assets/woodWall.png'),
-        loadImage('./assets/floor_panel.png'),
+        loadImage('./assets/floorTile.png'),
         loadImage('./assets/wallPanel.png'),
     ]);
 
@@ -337,7 +339,7 @@ async function init() {
 
 function draw() {
     Renderer.clearScreen();
-    Renderer.renderFloor( Player, {r: 40, g: 40, b: 50}, World, myAssets.floorPanelTexture);
+    Renderer.renderFloor( Player, skyCol, World, myAssets.floorPanelTexture);
     // Renderer.drawBackground(Player.angle, myAssets.backgroundFiller);
     renderWalls();
     
